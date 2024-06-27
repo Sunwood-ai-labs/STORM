@@ -1,0 +1,83 @@
+[project]
+name = "storm-system"
+version = "0.1.0"
+description = "Speech To Organized Rapid Markdown (STORM) System"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"},
+]
+dependencies = [
+    "torch>=2.0.0",
+    "transformers>=4.30.0",
+    "datasets[audio]",
+    "accelerate",
+    "flash-attn",
+    "pydantic>=2.0.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.22.0",
+    "python-multipart>=0.0.5",
+    "soundfile>=0.12.0",
+    "librosa>=0.10.0",
+    "markdown>=3.4.0",
+    "python-pptx>=0.6.21",
+]
+requires-python = ">=3.9"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "storm-system"
+version = "0.1.0"
+description = "Speech To Organized Rapid Markdown (STORM) System"
+authors = ["Your Name <your.email@example.com>"]
+packages = [
+    { include = "storm" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+torch = "^2.0.0"
+transformers = {git = "https://github.com/huggingface/transformers.git"}
+datasets = {extras = ["audio"], version = "^2.13.0"}
+accelerate = "^0.21.0"
+# flash-attn = "^2.0.0"
+pydantic = "^2.0.0"
+fastapi = "^0.100.0"
+uvicorn = "^0.22.0"
+python-multipart = "^0.0.6"
+soundfile = "^0.12.1"
+librosa = "^0.10.0"
+markdown = "^3.4.3"
+python-pptx = "^0.6.21"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4.0"
+black = "^23.3.0"
+isort = "^5.12.0"
+flake8 = "^6.0.0"
+
+[tool.black]
+line-length = 100
+target-version = ['py39']
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.flake8]
+max-line-length = 100
+extend-ignore = "E203, W503"
+max-complexity = 10
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+
+[tool.poetry.scripts]
+storm = "storm.cli:main"

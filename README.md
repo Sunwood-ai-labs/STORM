@@ -34,49 +34,216 @@
 >[!IMPORTANT]
 >このリポジトリのリリースノートやREADME、コミットメッセージの9割近くは[claude.ai](https://claude.ai/)や[ChatGPT4](https://chatgpt.com/)を活用した[AIRA](https://github.com/Sunwood-ai-labs/AIRA), [SourceSage](https://github.com/Sunwood-ai-labs/SourceSage), [Gaiah](https://github.com/Sunwood-ai-labs/Gaiah), [HarmonAI_II](https://github.com/Sunwood-ai-labs/HarmonAI_II)で生成しています。
 
-# ARC Prize 2024 開発リポジトリ
 
-## 🌟 Introduction
+STORMは、音声入力からマークダウン形式のスライドを生成し、さらにPowerPointプレゼンテーションに変換するシステムです。音声認識、自然言語処理、そして最新のLLM（大規模言語モデル）技術を駆使して、効率的なプレゼンテーション作成をサポートします。
 
-このリポジトリは、ARC Prize 2024コンペティションへの参加を目的とした開発リポジトリです。
+## 主な機能
 
-## 🎯 目標
+- 音声入力からテキストへの変換
+- テキストの自動構造化と要約
+- マークダウン形式でのスライド生成
+- PowerPointプレゼンテーションへの自動変換
+- 使いやすいコマンドラインインターフェース（CLI）
 
-このコンペティションでは、大規模なデータセットによる学習のみに依存するのではなく、新しいスキルを効率的に学習し、未解決の問題を解決できるAIシステムの開発を目指します。上位入賞作品は、人間の推論ベンチマークに対する改善を示すことが期待されます。
+## フォルダ構成
 
-## 🎥 Demo
+```
+storm-system/
+├── storm/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── config.py
+│   ├── cli.py
+│   ├── voice_input/
+│   │   ├── __init__.py
+│   │   ├── recorder.py
+│   │   └── preprocessor.py
+│   ├── speech_recognition/
+│   │   ├── __init__.py
+│   │   └── asr_model.py
+│   ├── text_processing/
+│   │   ├── __init__.py
+│   │   ├── nlp_processor.py
+│   │   └── llm_interface.py
+│   ├── markdown_generation/
+│   │   ├── __init__.py
+│   │   └── md_generator.py
+│   ├── ppt_conversion/
+│   │   ├── __init__.py
+│   │   └── ppt_converter.py
+│   └── utils/
+│       ├── __init__.py
+│       ├── audio_utils.py
+│       └── text_utils.py
+├── tests/
+│   ├── __init__.py
+│   ├── test_voice_input.py
+│   ├── test_speech_recognition.py
+│   ├── test_text_processing.py
+│   ├── test_markdown_generation.py
+│   ├── test_ppt_conversion.py
+│   └── test_cli.py
+├── docs/
+│   ├── api_reference.md
+│   ├── user_guide.md
+│   └── cli_usage.md
+├── examples/
+│   ├── simple_pipeline.py
+│   ├── advanced_usage.py
+│   └── cli_demo.py
+├── pyproject.toml
+├── README.md
+└── .gitignore
+```
 
-（デモ動画があれば、ここに埋め込む）
+### ディレクトリの説明
 
-## 🚀 Getting Started
+- `storm/`: メインのソースコードディレクトリ
+  - `voice_input/`: 音声入力の処理
+  - `speech_recognition/`: 音声認識の実装
+  - `text_processing/`: テキスト処理とLLMインターフェース
+  - `markdown_generation/`: マークダウン生成ロジック
+  - `ppt_conversion/`: PowerPointへの変換機能
+  - `utils/`: 共通のユーティリティ関数
+- `tests/`: ユニットテストとインテグレーションテスト
+- `docs/`: プロジェクトのドキュメンテーション
+- `examples/`: 使用例とデモスクリプト
 
-（リポジトリの使い方、開発環境の構築方法などを記述）
+## 必要条件
 
-## 📝 Updates
+- Python 3.9以上
+- Poetry（依存関係管理とパッケージング）
 
-（更新情報があれば、ここに記述）
+## インストール
 
-## 🤝 Contributing
+1. リポジトリをクローンします：
+   ```
+   git clone https://github.com/yourusername/storm-system.git
+   cd storm-system
+   ```
 
-（コントリビューションの方法を記述）
+2. Poetryを使用して依存関係をインストールします：
+   ```
+   poetry install
+   ```
 
-## 📄 License
+## 使用方法
 
-（ライセンスを記述）
+STORMシステムは、コマンドラインインターフェース（CLI）を通じて操作します。
 
-## 🙏 Acknowledgements
+### 音声ファイルからプレゼンテーションを生成
 
-## 背景
+```
+poetry run storm convert 入力音声.wav -o 出力プレゼン.pptx
+```
 
-現在のAIシステムは、大規模なデータセットで広範囲に学習されているにもかかわらず、学習データの範囲外の新しい問題に一般化することができません。LLMは、既知のタスクの多くでAIを主流にもたらしました。しかし、汎用人工知能（AGI）に向けた進歩は停滞しています。AGIの改善は、人間とともに考え、発明するAIシステムを実現する可能性があります。
+### 音声を録音してプレゼンテーションを生成
 
-汎用人工知能のための抽象化と推論コーパス（ARC-AGI）ベンチマークは、AIシステムが新しいスキルをどれだけ効率的に学習できるかを測定します。人間はARCで簡単に85%のスコアを獲得しますが、最高のAIシステムでも34%しか獲得できません。ARC Prizeコンペティションは、大規模なデータセットに大きく依存し、新しい問題に苦戦するLLMを超えたアイデアを研究者に探求することを奨励しています。
+```
+poetry run storm record -d 60 -o 録音プレゼン.pptx
+```
 
-## コンペティション詳細
+ここで、`-d`オプションは録音時間（秒）を指定します。
 
-このコンペティションには、いくつかのコンポーネントがあります。ここで説明するコンペティションには、10万ドルの賞金が用意されており、さらにリーダーボードで85%を超えるスコアを獲得したチームには、追加で50万ドルの賞金が授与されます。Kaggle以外でも、関連する賞金が用意されています。詳しくは、ARCprize.orgをご覧ください。
+## 開発
 
-## インパクト
+開発に参加する場合は、以下の手順に従ってください：
 
-あなたの研究は、さまざまな業界で応用可能な、新しいAI問題解決に貢献する可能性があります。大幅に改善されたAGIは、人間と機械の相互作用を大きく変える可能性があります。受賞したソリューションは、AGI分野の透明性とコラボレーションを促進するためにオープンソース化されます。 
+1. リポジトリをフォークし、ローカルにクローンします。
+2. 新しいブランチを作成します：`git checkout -b feature/awesome-feature`
+3. 変更を加え、コミットします：`git commit -am 'Add awesome feature'`
+4. ブランチをプッシュします：`git push origin feature/awesome-feature`
+5. プルリクエストを作成します。
 
+## テスト
+
+テストを実行するには：
+
+```
+poetry run pytest
+```
+
+## 処理フロー
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#196774', 'secondaryColor': '#90A19D', 'tertiaryColor': '#F0941F', 'noteTextColor': '#363432', 'noteBkgColor': '#EF6024', 'activationBkgColor': '#90A19D', 'sequenceNumberColor': '#363432', 'actorBkg': '#196774', 'actorTextColor': '#F0941F'}}}%%
+
+sequenceDiagram
+    actor User as 👤 User
+    participant UI as 🖥️ UI
+    participant VIM as 🎙️ VIM
+    participant ASR as 🎤 ASR
+    participant NLP as 🧠 NLP
+    participant LLM as 🤖 LLM
+    participant MDG as 📝 MDG
+    participant PPT as 📊 PPT
+
+    activate User
+    User->>+UI: 🗣️ 音声入力開始要求
+    deactivate User
+
+    alt 🎤 音声入力フェーズ
+        UI->>+VIM: 🔊 音声入力セッション開始
+        activate User
+        VIM->>User: 🗣️ 音声入力促進
+        User->>VIM: 🎙️ 音声データ提供
+        deactivate User
+        VIM-->>-UI: 🔉 音声データ送信
+    end
+
+    alt 🎙️ 音声認識フェーズ
+        UI->>+ASR: 📢 音声データ送信
+        ASR-->>-UI: 📄 テキストデータ返送
+    end
+
+    alt 📚 テキスト処理フェーズ
+        UI->>+NLP: 📋 テキストデータ送信
+        NLP->>+LLM: 🔍 構造化テキスト送信
+        LLM-->>-NLP: 💡 コンテンツ案返送
+        NLP-->>-UI: 📊 処理済みデータ返送
+    end
+
+    alt 📝 マークダウン生成フェーズ
+        UI->>+MDG: 📑 処理済みデータ送信
+        MDG-->>-UI: 📄 マークダウンスライド返送
+    end
+
+    activate User
+    UI->>User: 👀 マークダウンレビュー要求
+    User->>UI: 👍 レビュー結果送信
+    deactivate User
+
+    alt ✏️ 編集フェーズ
+        alt 編集が必要
+            activate User
+            User->>+UI: 🖊️ 編集指示
+            UI->>+MDG: 📝 編集内容送信
+            MDG-->>-UI: 🔄 更新されたマークダウン返送
+            UI-->>-User: ✅ 更新確認
+            deactivate User
+        else 編集不要
+            UI->>UI: ➡️ 次のステップへ進む
+        end
+    end
+
+    alt 🖼️ PowerPoint変換フェーズ
+        UI->>+PPT: 📤 最終マークダウン送信
+        PPT-->>-UI: 📥 PowerPointファイル返送
+    end
+
+    activate User
+    UI->>User: 🎉 完成したPowerPointファイル提示
+    deactivate User
+```
+
+## ライセンス
+
+このプロジェクトはMITライセンスの下で公開されています。詳細は[LICENSE](LICENSE)ファイルを参照してください。
+
+## 貢献
+
+バグレポート、機能リクエスト、プルリクエストなど、あらゆる形での貢献を歓迎します。大きな変更を加える前には、まずissueを開いて議論することをお勧めします。
+
+## 連絡先
+
+質問や提案がある場合は、[issues](https://github.com/yourusername/storm-system/issues)セクションを通じてお問い合わせください。
