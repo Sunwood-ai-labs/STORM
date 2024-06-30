@@ -42,7 +42,7 @@ python = "^3.9"
 torch = "^2.0.0"
 transformers = {git = "https://github.com/huggingface/transformers.git"}
 datasets = {extras = ["audio"], version = "^2.13.0"}
-accelerate = "^0.21.0"
+accelerate = "^0.23.0"  # この行を追加
 # flash-attn = "^2.0.0"
 pydantic = "^2.0.0"
 fastapi = "^0.100.0"
@@ -54,6 +54,8 @@ markdown = "^3.4.3"
 python-pptx = "^0.6.21"
 pyaudio = "^0.2.13"
 loguru = "^0.6.0"
+art = "^5.8"
+setuptools = "^65.5.1"  # この行を追加
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.4.0"
