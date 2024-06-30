@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from litellm import completion
 from loguru import logger
+from art import text2art
 
 # .envファイルから環境変数を読み込む
 load_dotenv()
@@ -9,7 +10,8 @@ load_dotenv()
 class SlideConverter:
     def __init__(self):
         self.model = "gemini/gemini-pro"
-
+        # ASCIIアートでクラス名を表示
+        print(text2art("SlideConverter", font="slant"))
     def convert_to_slides(self, markdown_text):
         logger.info("スライド変換を開始します")
         
