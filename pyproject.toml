@@ -56,6 +56,8 @@ pyaudio = "^0.2.13"
 loguru = "^0.6.0"
 art = "^5.8"
 setuptools = "^65.5.1"  # この行を追加
+litellm = "^1.0.0"  # バージョンは適宜調整してください
+python-dotenv = "^1.0.0"  # バージョンは適宜調整してください
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.4.0"
