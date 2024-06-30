@@ -178,6 +178,12 @@ poetry run storm record -d 60 -o 録音プレゼン.pptx
 4. ブランチをプッシュします：`git push origin feature/awesome-feature`
 5. プルリクエストを作成します。
 
+
+```bash
+poetry update && poetry install
+poetry shell
+```
+
 ## テスト
 
 テストを実行するには：
