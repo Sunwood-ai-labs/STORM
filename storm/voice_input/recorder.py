@@ -3,6 +3,7 @@ import wave
 import numpy as np
 from pathlib import Path
 from loguru import logger
+from art import text2art
 
 class AudioRecorder:
     def __init__(self, rate=44100, channels=1, chunk=1024):
@@ -12,6 +13,8 @@ class AudioRecorder:
         self.chunk = chunk
         self.p = pyaudio.PyAudio()
         self.frames = []
+        # ASCIIアートでクラス名を表示
+        print(text2art("AudioRecorder", font="slant"))
         logger.info("オーディオレコーダーを初期化しました")
 
     def start_recording(self, duration):
@@ -61,7 +64,7 @@ if __name__ == "__main__":
     import argparse
     
     parser = argparse.ArgumentParser(description="音声録音ツール")
-    parser.add_argument("-d", "--duration", type=int, default=5, help="録音時間（秒）")
+    parser.add_argument("-d", "--duration", type=int, default=10, help="録音時間（秒）")
     parser.add_argument("-o", "--output", default="recorded_audio.wav", help="出力オーディオファイル名")
     
     args = parser.parse_args()
