@@ -2,12 +2,15 @@ import os
 from dotenv import load_dotenv
 from litellm import completion
 from loguru import logger
+from art import text2art
 
 # .envファイルから環境変数を読み込む
 load_dotenv()
 
 class TextProcessor:
     def __init__(self):
+        # ASCIIアートでクラス名を表示
+        print(text2art("TextProcessor", font="slant"))
         self.model = "gemini/gemini-pro"
 
     def process_text(self, input_text):
