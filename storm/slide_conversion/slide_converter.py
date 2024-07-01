@@ -9,9 +9,10 @@ load_dotenv()
 
 class SlideConverter:
     def __init__(self):
-        self.model = "gemini/gemini-pro"
+        self.model = "gemini/gemini-1.5-pro-latest"
         # ASCIIアートでクラス名を表示
         print(text2art("SlideConverter", font="slant"))
+
     def convert_to_slides(self, markdown_text):
         logger.info("スライド変換を開始します")
         
@@ -19,12 +20,14 @@ class SlideConverter:
             response = completion(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": "入力されたマークダウンテキストをスライド形式のマークダウンに変換してください。各スライドは '---' で区切り、内容を簡潔にまとめてください。"},
+                    {"role": "system", "content": "入力されたマークダウンテキストをReveal.js形式のスライドマークダウンに変換してください。各スライドは '---' で区切り、簡潔にまとめてください。"},
                     {"role": "user", "content": markdown_text}
                 ]
             )
             
             slide_markdown = response['choices'][0]['message']['content']
+            # マークダウンコードブロックを除去
+            slide_markdown = slide_markdown.strip().lstrip('```markdown').rstrip('```').strip()
             logger.success("スライド形式への変換が完了しました")
             return slide_markdown
         
