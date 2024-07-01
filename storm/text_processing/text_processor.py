@@ -11,7 +11,7 @@ class TextProcessor:
     def __init__(self):
         # ASCIIアートでクラス名を表示
         print(text2art("TextProcessor", font="slant"))
-        self.model = "gemini/gemini-pro"
+        self.model = "gemini/gemini-1.5-pro-latest"
 
     def process_text(self, input_text):
         logger.info("テキスト処理を開始します")
@@ -20,7 +20,7 @@ class TextProcessor:
             response = completion(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": "入力されたテキストを解析し、基本的なマークダウン形式で構造化してください。見出し、リスト、強調などのマークダウン要素を適切に使用してください。"},
+                    {"role": "system", "content": "入力されたテキストを解析し、基本的なマークダウン形式で構造化してください。見出し、リスト、強調、表や必要であればマーメイド形式で可視化などのマークダウン要素を適切に使用してください。"},
                     {"role": "user", "content": input_text}
                 ]
             )
