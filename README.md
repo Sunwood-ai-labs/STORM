@@ -137,6 +137,9 @@ storm-system/
    ```
    git clone https://github.com/yourusername/storm-system.git
    cd storm-system
+
+   pip install poetry
+   
    ```
 
 2. Poetryを使用して依存関係をインストールします：
@@ -174,6 +177,12 @@ poetry run storm record -d 60 -o 録音プレゼン.pptx
 3. 変更を加え、コミットします：`git commit -am 'Add awesome feature'`
 4. ブランチをプッシュします：`git push origin feature/awesome-feature`
 5. プルリクエストを作成します。
+
+
+```bash
+poetry update && poetry install
+poetry shell
+```
 
 ## テスト
 

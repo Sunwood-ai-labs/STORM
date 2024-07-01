@@ -167,3 +167,8 @@ tmp2.md
 .SourceSageAssets
 
 poetry.lock
+recorded_audio.wav
+recognized_text.txt
+input_text.txt
+processed_text.md
+slides.md
