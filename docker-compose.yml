@@ -6,6 +6,7 @@ services:
     volumes:
       - .:/workspace
       # - ~/.gitconfig:/root/.gitconfig
+      
     working_dir: /workspace
     command: /bin/bash
     tty: true
