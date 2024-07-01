@@ -19,18 +19,19 @@ os.environ["AWS_SECRET_ACCESS_KEY"] = os.getenv("AWS_SECRET_ACCESS_KEY")
 interpreter.auto_run = True
 
 # 利用するモデルを設定
-# interpreter.llm.model = "anthropic/claude-3-5-sonnet-20240620"
-interpreter.llm.model = "bedrock/anthropic.claude-3-sonnet-20240229-v1:0"
+interpreter.llm.model = "anthropic/claude-3-5-sonnet-20240620"
+# interpreter.llm.model = "bedrock/anthropic.claude-3-sonnet-20240229-v1:0"
 
 # モデルのコンテキストウィンドウサイズを設定
 interpreter.llm.context_window = 8000  # type: ignore
 
 message = """
 
-Gitを使用して今のリポジトリで変更があったファイルごとにコミットメッセージを作成してコミットしてください
+Gitを使用して今のリポジトリで変更があったファイルごとにコミットメッセージを作成してマークダウンファイル「commit.md」で保存してください
 - コミットメッセージは下記のフォーマットと種類に従って作成してください
 - 日本語で対応してください
-- OSはWindowsです
+- OSはWindowsです。コマンドプロンプトを使用して
+- コミットメッセージはファイルごとに作成して
 
 ## コミットメッセージの種類
 コミットメッセージの種類は下記を参考にして
@@ -48,8 +49,28 @@ Gitを使用して今のリポジトリで変更があったファイルごと�
 
 ## コミットメッセージのフォーマット
 
-(コミットメッセージに最適な絵文字) [種類] 概要
+### path/to/file1.txt
 
+```commit-msg
+(コミットメッセージに最適な絵文字) [種類] 概要
+- 詳細な説明（必要に応じて）
+```
+
+### path/to/file2.txt
+
+```commit-msg
+(コミットメッセージに最適な絵文字) [種類] 概要
+- 詳細な説明（必要に応じて）
+```
+
+
+"""
+interpreter.chat(message, display=True, stream=False)
+
+
+message = """
+
+「commit.md」の内容をもとに変更があったファイルごとにコミットしてください
 
 """
 interpreter.chat(message, display=True, stream=False)
