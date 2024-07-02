@@ -8,10 +8,10 @@ from art import text2art
 load_dotenv()
 
 class SlideConverter:
-    def __init__(self):
-        self.model = "gemini/gemini-1.5-pro-latest"
-        # ASCIIアートでクラス名を表示
+    def __init__(self, model="gemini/gemini-1.5-pro-latest"):
+        self.model = model
         print(text2art("SlideConverter", font="slant"))
+        logger.info(f"SlideConverterを初期化しました: モデル = {self.model}")
 
     def convert_to_slides(self, markdown_text):
         logger.info("スライド変換を開始します")
@@ -26,7 +26,6 @@ class SlideConverter:
             )
             
             slide_markdown = response['choices'][0]['message']['content']
-            # マークダウンコードブロックを除去
             slide_markdown = slide_markdown.strip().lstrip('```markdown').rstrip('```').strip()
             logger.success("スライド形式への変換が完了しました")
             return slide_markdown
@@ -52,17 +51,25 @@ def read_markdown_file(file_path):
         return None
 
 if __name__ == "__main__":
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="スライド変換ツール")
+    parser.add_argument("-i", "--input", default="processed_text.md", help="入力マークダウンファイル名")
+    parser.add_argument("-o", "--output", default="slides.md", help="出力スライドマークダウンファイル名")
+    parser.add_argument("--model", default="gemini/gemini-1.5-pro-latest", help="使用するスライド変換モデル")
+    
+    args = parser.parse_args()
+    
     logger.info("スライド変換モジュールを単独で実行します")
     
-    input_file = "processed_text.md"
-    markdown_text = read_markdown_file(input_file)
+    markdown_text = read_markdown_file(args.input)
     
     if markdown_text:
-        converter = SlideConverter()
+        converter = SlideConverter(model=args.model)
         slide_markdown = converter.convert_to_slides(markdown_text)
         
         if slide_markdown:
             print(slide_markdown)
-            converter.save_slides(slide_markdown, "slides.md")
+            converter.save_slides(slide_markdown, args.output)
     
     logger.info("スライド変換モジュールの実行を完了しました")
