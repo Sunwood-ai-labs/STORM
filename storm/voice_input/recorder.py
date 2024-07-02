@@ -13,9 +13,9 @@ class AudioRecorder:
         self.chunk = chunk
         self.p = pyaudio.PyAudio()
         self.frames = []
-        # ASCIIアートでクラス名を表示
         print(text2art("AudioRecorder", font="slant"))
-        logger.info("オーディオレコーダーを初期化しました")
+        logger.info(f"オーディオレコーダーを初期化しました: サンプルレート={rate}, チャンネル数={channels}")
+
 
     def start_recording(self, duration):
         """指定された時間だけ録音を開始"""
@@ -52,9 +52,9 @@ class AudioRecorder:
         self.p.terminate()
         logger.info("オーディオレコーダーを終了しました")
 
-def record_audio(duration=5, output_file="recorded_audio.wav"):
+def record_audio(duration=5, output_file="recorded_audio.wav", rate=44100, channels=1):
     """指定された時間だけ音声を録音し、ファイルに保存"""
-    recorder = AudioRecorder()
+    recorder = AudioRecorder(rate=rate, channels=channels)
     recorder.start_recording(duration)
     recorder.save_recording(output_file)
     recorder.close()
@@ -66,6 +66,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="音声録音ツール")
     parser.add_argument("-d", "--duration", type=int, default=10, help="録音時間（秒）")
     parser.add_argument("-o", "--output", default="recorded_audio.wav", help="出力オーディオファイル名")
+    parser.add_argument("--rate", type=int, default=44100, help="サンプルレート")
+    parser.add_argument("--channels", type=int, default=1, help="チャンネル数")
     
     args = parser.parse_args()
     
@@ -74,6 +76,6 @@ if __name__ == "__main__":
         output_path.parent.mkdir(parents=True)
         logger.info(f"出力ディレクトリを作成しました: {output_path.parent}")
     
-    logger.info(f"録音を開始します: 時間 = {args.duration}秒, 出力ファイル = {output_path}")
-    recorded_file = record_audio(duration=args.duration, output_file=str(output_path))
+    logger.info(f"録音を開始します: 時間={args.duration}秒, 出力ファイル={output_path}, サンプルレート={args.rate}, チャンネル数={args.channels}")
+    recorded_file = record_audio(duration=args.duration, output_file=str(output_path), rate=args.rate, channels=args.channels)
     logger.success(f"音声を録音し、{recorded_file} として保存しました")
