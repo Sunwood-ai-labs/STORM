@@ -37,7 +37,7 @@ build-backend = "poetry.core.masonry.api"
 name = "storm-system"
 version = "0.1.0"
 description = "Speech To Organized Rapid Markdown (STORM) System"
-authors = ["Maki<sunwood.ai.labs@gmail.com>"]
+authors = ["Maki <sunwood.ai.labs@gmail.com>"]
 packages = [
     { include = "storm" },
 ]
