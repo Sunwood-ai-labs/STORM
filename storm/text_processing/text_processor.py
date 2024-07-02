@@ -8,10 +8,10 @@ from art import text2art
 load_dotenv()
 
 class TextProcessor:
-    def __init__(self):
-        # ASCIIアートでクラス名を表示
+    def __init__(self, model="gemini/gemini-1.5-pro-latest"):
         print(text2art("TextProcessor", font="slant"))
-        self.model = "gemini/gemini-1.5-pro-latest"
+        self.model = model
+        logger.info(f"TextProcessorを初期化しました: モデル = {self.model}")
 
     def process_text(self, input_text):
         logger.info("テキスト処理を開始します")
@@ -50,17 +50,25 @@ def read_input_file(file_path):
         return None
 
 if __name__ == "__main__":
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="テキスト処理ツール")
+    parser.add_argument("-i", "--input", default="recognized_text.txt", help="入力テキストファイル名")
+    parser.add_argument("-o", "--output", default="processed_text.md", help="出力マークダウンファイル名")
+    parser.add_argument("--model", default="gemini/gemini-1.5-pro-latest", help="使用するテキスト処理モデル")
+    
+    args = parser.parse_args()
+    
     logger.info("テキスト処理モジュールを単独で実行します")
     
-    input_file = "input_text.txt"
-    input_text = read_input_file(input_file)
+    input_text = read_input_file(args.input)
     
     if input_text:
-        processor = TextProcessor()
+        processor = TextProcessor(model=args.model)
         processed_markdown = processor.process_text(input_text)
         
         if processed_markdown:
             print(processed_markdown)
-            processor.save_markdown(processed_markdown, "processed_text.md")
+            processor.save_markdown(processed_markdown, args.output)
     
     logger.info("テキスト処理モジュールの実行を完了しました")
