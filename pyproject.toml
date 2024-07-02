@@ -3,7 +3,7 @@ name = "storm-system"
 version = "0.1.0"
 description = "Speech To Organized Rapid Markdown (STORM) System"
 authors = [
-    {name = "Your Name", email = "your.email@example.com"},
+    {name = "Maki", email = "sunwood.ai.labs@gmail.com"},
 ]
 dependencies = [
     "torch>=2.0.0",
@@ -37,7 +37,7 @@ build-backend = "poetry.core.masonry.api"
 name = "storm-system"
 version = "0.1.0"
 description = "Speech To Organized Rapid Markdown (STORM) System"
-authors = ["Your Name <your.email@example.com>"]
+authors = ["Maki<sunwood.ai.labs@gmail.com>"]
 packages = [
     { include = "storm" },
 ]
